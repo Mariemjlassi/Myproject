@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+{% block title %}Detailes LivresController!{% endblock %}
+{% block body %}
+<div class="containe mt-3">
+<h2>Le detaille du {{livre.titre | capitalize}}</h2>
+<img src={{livre.image}} width="300" height="200"><br>
+ ISBN :<td>{{livre.isbn}}</td><br>
+Editeur :<td>{{livre.editeur}}</td><br>
+Prix :<td>{{livre.prix}} D</td><br>
+Date d'édition :<td>{{livre.dateEdition | date('d/m/Y')}}</td><br>
+Resuméé : <td>{{livre.resume}}</td>
+
+
+</div>
+{% endblock %}

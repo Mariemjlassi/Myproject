@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LivresController!{% endblock %}
+
+{% block body %}
+<table class=table>
+
+<th>Titre</th>
+<th>ISBN</th>
+<th>Editeur</th>
+<th>prix</th>
+<th>Date Edition</th>
+<th>Catégories</th>
+<th>Action</th>
+<th></th>
+<th></th>
+<th></th>
+
+</tr>
+{% for livre in livres %}
+<tr>
+
+<td>{{livre.titre | capitalize}}</td>
+<td>{{livre.isbn}}</td>
+<td>{{livre.editeur}}</td>
+<td>{{livre.prix}}</td>
+<td>{{livre.dateEdition | date('d/m/Y')}}</td>
+<td>{{livre.categorie.libelle}}</td>
+<td><a href="{{url('app_livres_details',{'id':livre.id})}}"><button type="button" class="btn btn-link">voir details</button></a></td>
+<td><a href="{{url('app_livres_delete',{'id':livre.id})}}"><button type="button" class="btn btn-dark">supprimer</button></a></td>
+<td><a href="{{url('app_livres_update',{'id':livre.id})}}"><button type="button" class="btn btn-danger">Editer</button></a></td>
+
+</tr>
+    
+{% endfor %}
+
+</table>
+{% endblock %}

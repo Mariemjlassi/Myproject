@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Repository;
-
+use App\Entity\Categories;
 use App\Entity\Livres;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -35,6 +35,16 @@ class LivresRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    public function search($term)
+    {
+        return $this->createQueryBuilder('l')
+            ->where('l.titre LIKE :term')
+            ->orWhere('l.categorie IN (SELECT c.id FROM categorie c WHERE c.libelle LIKE :term)')
+            ->setParameter('term', '%' . $term . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
 
 //    public function findOneBySomeField($value): ?Livres
 //    {

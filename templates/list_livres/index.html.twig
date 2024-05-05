@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ListLivresController!{% endblock %}
+
+{% block body %}
+<div class="row">
+{% for livre in livres %}
+  <div class="col-sm-4">
+    <div class="card" style="width: 18rem;">
+      <img src="{{ asset('assets/images/'~ livre.image) }}" class="card-img-top" alt="..." style="height: 400px; width: 287px; object-fit: cover;">
+      <div class="card-body">
+        <h5 class="card-title">{{livre.titre | capitalize}}</h5>
+        <p class="card-text">{{livre.prix}} DT</p>
+        <div class="card-body">
+          <a href="{{url('app_livre_details',{'id':livre.id})}}" class="card-link">Voir détails</a>
+          <a href="{{url('panier_ajouter',{'id':livre.id})}}" class="card-link">Ajouter au panier</a>
+        </div>
+      </div>
+    </div><br>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

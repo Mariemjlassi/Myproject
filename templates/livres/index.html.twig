@@ -2,9 +2,12 @@
 
 {% block title %}Hello LivresController!{% endblock %}
 
-{% block body %}
-<table class=table>
 
+{% block body %}
+<a href="{{url('app_livre_add')}}"><button type="button" class="btn btn-info">Ajouter</button></a>
+
+<table class=table>
+<tr>
 <th>Titre</th>
 <th>ISBN</th>
 <th>Editeur</th>
@@ -27,8 +30,8 @@
 <td>{{livre.dateEdition | date('d/m/Y')}}</td>
 <td>{{livre.categorie.libelle}}</td>
 <td><a href="{{url('app_livres_details',{'id':livre.id})}}"><button type="button" class="btn btn-link">voir details</button></a></td>
-<td><a href="{{url('app_livres_delete',{'id':livre.id})}}"><button type="button" class="btn btn-dark">supprimer</button></a></td>
-<td><a href="{{url('app_livres_update',{'id':livre.id})}}"><button type="button" class="btn btn-danger">Editer</button></a></td>
+<td><a href="{{url('app_livres_delete',{'id':livre.id})}}"><button type="button" class="btn btn-danger">supprimer</button></a></td>
+<td><a href="{{url('app_livres_modify',{'id':livre.id})}}"><button type="button" class="btn btn-primary">Editer</button></a></td>
 
 </tr>
     

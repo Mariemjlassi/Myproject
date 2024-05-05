@@ -16,8 +16,8 @@ class AppFixtures extends Fixture
         for($j=1;$j<=3;$j++){
             $cat=new Categories();
             $cat->setLibelle($faker->name())
-            ->setSlug($faker->name())
-            ->setDescripton($faker->paragraph(3));
+                ->setSlug($faker->name())
+                ->setDescripton($faker->paragraph(3));
             $manager->persist($cat);
         
         for($i=1;$i<=random_int(50,100);$i++){

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LivresRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -43,6 +45,14 @@ class Livres
 
     #[ORM\ManyToOne(inversedBy: 'livres')]
     private ?Categories $categorie = null;
+
+    #[ORM\OneToMany(targetEntity: LignePanier::class, mappedBy: 'livre')]
+    private Collection $lignePaniers;
+
+    public function __construct()
+    {
+        $this->lignePaniers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -165,6 +175,36 @@ class Livres
     public function setCategorie(?Categories $categorie): static
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LignePanier>
+     */
+    public function getLignePaniers(): Collection
+    {
+        return $this->lignePaniers;
+    }
+
+    public function addLignePanier(LignePanier $lignePanier): static
+    {
+        if (!$this->lignePaniers->contains($lignePanier)) {
+            $this->lignePaniers->add($lignePanier);
+            $lignePanier->setLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLignePanier(LignePanier $lignePanier): static
+    {
+        if ($this->lignePaniers->removeElement($lignePanier)) {
+            // set the owning side to null (unless already changed)
+            if ($lignePanier->getLivre() === $this) {
+                $lignePanier->setLivre(null);
+            }
+        }
 
         return $this;
     }

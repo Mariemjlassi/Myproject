@@ -5,13 +5,14 @@
   
   <div class="row">
     <div class="col-md-6 mt-4">
-      <img src="{{ asset('assets/images/' ~ livre.image) }}" width="500" height="700">
+      <img src="{{ asset('assets/images/' ~ livre.image) }}" width="400" height="500">
     </div>
     <div class="col-md-6"><br><br><br><br><br>
     <h1 style="color:#4D2DB7">{{livre.titre | capitalize}}</h2><br><br><br><br>
       <p><strong style="font-size:20px;color:#4D2DB7">Editeur :</strong> {{livre.editeur}}</p>
       <p><strong style="font-size:20px;color:#4D2DB7">Prix :</strong> {{livre.prix}} D</p>
       <p><strong style="font-size:20px;color:#4D2DB7">Date d'édition :</strong> {{livre.dateEdition | date('d/m/Y')}}</p>
+     <a href="{{url('panier_ajouter',{'id':livre.id})}}" class="card-link"><button class="btn btn-outline-primary">Ajouter au panier</button></a>
       <p><strong style="font-size:20px;color:#"></p>
     </div>
   </div>

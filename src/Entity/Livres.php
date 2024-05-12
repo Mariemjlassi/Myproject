@@ -49,9 +49,16 @@ class Livres
     #[ORM\OneToMany(targetEntity: LignePanier::class, mappedBy: 'livre')]
     private Collection $lignePaniers;
 
+    #[ORM\OneToMany(targetEntity: LigneCommande::class, mappedBy: 'livre')]
+    private Collection $ligneCommandes;
+
+   
+
     public function __construct()
     {
         $this->lignePaniers = new ArrayCollection();
+        $this->ligneCommandes = new ArrayCollection();
+       
     }
 
     public function getId(): ?int
@@ -208,4 +215,36 @@ class Livres
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, LigneCommande>
+     */
+    public function getLigneCommandes(): Collection
+    {
+        return $this->ligneCommandes;
+    }
+
+    public function addLigneCommande(LigneCommande $ligneCommande): static
+    {
+        if (!$this->ligneCommandes->contains($ligneCommande)) {
+            $this->ligneCommandes->add($ligneCommande);
+            $ligneCommande->setLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLigneCommande(LigneCommande $ligneCommande): static
+    {
+        if ($this->ligneCommandes->removeElement($ligneCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($ligneCommande->getLivre() === $this) {
+                $ligneCommande->setLivre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
 }

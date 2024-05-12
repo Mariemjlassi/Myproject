@@ -23,6 +23,11 @@ class Panier
     #[ORM\OneToMany(targetEntity: LignePanier::class, mappedBy: 'panier')]
     private Collection $lignePaniers;
 
+    #[ORM\ManyToOne(inversedBy: 'paniers')]
+    private ?CodePromo $codePromo = null;
+
+   
+
     public function __construct()
     {
         
@@ -78,4 +83,18 @@ class Panier
 
         return $this;
     }
+
+    public function getCodePromo(): ?CodePromo
+    {
+        return $this->codePromo;
+    }
+
+    public function setCodePromo(?CodePromo $codePromo): static
+    {
+        $this->codePromo = $codePromo;
+
+        return $this;
+    }
+
+   
 }

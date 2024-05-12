@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h1>Mon panier</h1>
+<div class="container">
+<br><br><br>
 
 {% if app.flashes('error') %}
     <div class="alert alert-danger">
@@ -10,13 +11,15 @@
         {% endfor %}
     </div>
 {% endif %}
+
 <div class="row">
 <div class="col-md-6">
-<table class="table">
+<table class="table" style="margin-left:-90px">
 <tr>
 <th></th>
-<th></th>
-<th></th>
+<th>Quantité</th>
+<th>Prix unitaire</th>
+<th>Prix Total</th>
 <th></th>
 </tr>
 
@@ -25,23 +28,59 @@
     <tr>
     <td><img src="{{ asset('assets/images/' ~ lignePanier.livre.image) }}" width="100" height="150"></td>
     <td>
-        <form method="post" action="{{ path('panier_ajouter', {'id': lignePanier.livre.id}) }}" style="display: inline-block;">
-            <button type="submit" class="btn btn-light"> + </button>
-        </form>
-        {{ lignePanier.quantite }}
-        <form method="post" action="{{ path('panier_retirer_un', {'id': lignePanier.livre.id}) }}" style="display: inline-block;">
-            <button type="submit" class="btn btn-light"> - </button>
-        </form>
+    <a href="{{ path('panier_ajouter', {'id': lignePanier.livre.id}) }}"><button type="submit" class="btn btn-light"> + </button></a>
+      {{ lignePanier.quantite }}
+        <a href="{{ path('panier_retirer_un', {'id': lignePanier.livre.id}) }}"><button type="submit" class="btn btn-light"> - </button></a>
     </td>
-    <td></td>
+    
+    <td>{{ lignePanier.livre.prix}} DT</td>
+    
     <td>{{ lignePanier.livre.prix * lignePanier.quantite }} DT</td>
+    <td><a href="{{ path('panier_supprimer_ligne', {'id': lignePanier.livre.id}) }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i>
+</a>
+</td>
     </tr>
 {% endfor %}
 </table>
 </div>
 
 <div class="col-md-6">
-<h2 style="margin-left :100px;color:black">Total : {{ total }} DT</h2>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card" style="width: 20rem;">
+      <div class="card-body">
+      <img src="https://i.pinimg.com/564x/e6/05/ec/e605ecf052c9c2a6842beff00e842ff6.jpg" class="card-img-top" >
+        <h5 class="card-title" style="font-family:Times new roman;font-size:35px">Total</h5>
+        <p style="margin-left :20px;color:black;font-family:Times new roman;font-size:20px">Total avant réduction : {{ totalAvantReduction }} DT</p>
+        {% if totalApresReduction is not null and panier.getCodePromo() is not null %}
+    <p style="margin-left :20px;color:black;font-family:Times new roman;font-size:20px">Total après réduction : {{ totalApresReduction }} DT</p>
+{% endif %}
+
+
+        </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card" style="width: 25rem;">
+      <div class="card-body">
+        <form action="{{ path('panier_codepromo') }}" method="post">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="code promo" aria-label="Recipient's username" aria-describedby="basic-addon2" name="codepromo">
+            <button type="submit" class="btn btn-light" style="background-color : black;color:white">Appliquer</button>
+        </div>
+
+            
+        </form><br>
+        <a href="{{url('passer_commande')}}"><button class="btn btn-light" style="background-color : pink;color:black">Passer commande</button></a>
+    </div>
+  </div>
+</div>
+<br><br><br>
+{% if is_granted('ROLE_USER') %}
+
+{% else %}
+<a href="{{ path('app_login') }}"><button class="btn btn-primary" style="margin-left :100px">Passer commande</button></a>
+{% endif %}
 </div>
 </div>
 {% endblock %}

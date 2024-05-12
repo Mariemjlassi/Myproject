@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande n°{{ commande.id }}{% endblock %}
+
+{% block body %}
+<h1></h1>
+
+<h2>Articles commandés :</h2>
+<ul>
+    {% for ligneCommande in commande.ligneCommandes %}
+        <li>
+            Livre : {{ ligneCommande.livre.titre }} (quantité : {{ ligneCommande.quantite }})
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

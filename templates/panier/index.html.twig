@@ -71,7 +71,7 @@
 
             
         </form><br>
-        <a href="{{url('passer_commande')}}"><button class="btn btn-light" style="background-color : pink;color:black">Passer commande</button></a>
+        <a href="{{ path('passer_commande', {'total': totalApresReduction})}} "><button class="btn btn-light" style="background-color : pink;color:black">Passer commande</button></a>
     </div>
   </div>
 </div>

@@ -98,10 +98,13 @@ class PanierController extends AbstractController
         }
     
         $totavantRed = $total;
-        $totapresRed = null; 
+        $totapresRed = 0; 
     
         if ($panier->getCodePromo()) {
             $totapresRed = $totavantRed - $totavantRed * ($panier->getCodePromo()->getReduction() / 100);
+        }
+        if($totapresRed == 0){
+            $totapresRed=$total;
         }
     
         return $this->render('panier/index.html.twig', [
@@ -144,11 +147,8 @@ class PanierController extends AbstractController
             $manager->persist($panier);
             $manager->flush();
 
-            $this->addFlash('success', 'Code promo appliqué avec succès!');
-            $total = 0;
-        foreach ($panier->getLignePaniers() as $lignePanier) {
-            $total += $lignePanier->getLivre()->getPrix() * $lignePanier->getQuantite();
-        }
+            $this->addFlash('success', 'Code promo applique avec succees');
+           
            
         } else {
             $this->addFlash('error', 'Code promo invalide.');

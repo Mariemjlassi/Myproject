@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PayementController!{% endblock %}
+
+{% block body %}
+<form action="/checkout/300" method="POST">
+    <button type="submit" class="btn btn-primary">Checkout</button>
+  </form>
+{% endblock %}

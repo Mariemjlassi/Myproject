@@ -1,0 +1,68 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez-nous{% endblock %}
+
+{% block body %}
+<style>
+    .contact-form {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        width:1000px;
+        background-color: white;
+        border-radius: 40px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-left:300px;
+        margin-top:70px
+    }
+    .contact-form img {
+        max-width: 100%;
+        height: auto;
+        margin-left:10px
+    }
+    .form-container {
+        width: 50%;
+    }
+    .form-container form {
+        display: flex;
+        flex-direction: column;
+    }
+    .form-container form input,
+    .form-container form textarea {
+        margin-bottom: 15px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .form-container form .btn-submit {
+        background-color: #D2649A;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .form-container form .btn-submit:hover {
+        background-color: #8E3E63;
+    }
+    
+
+</style>
+
+<div class="contact-form">
+    <div class="form-container">
+        <h1>Contactez-nous</h1>
+        {{ form_start(form) }}
+        {{ form_widget(form.nomPrenom, {'attr': {'placeholder': 'Nom et Prénom'}}) }}
+        {{ form_widget(form.contenu, {'attr': {'placeholder': 'Contenu de la réclamation'}}) }}
+        {{ form_widget(form.enregistrer) }}
+        {{ form_end(form) }}
+    </div>
+    <div class="image-container">
+        <img src="https://unblast.com/wp-content/uploads/2020/09/Contact-Us-Vector-Illustration-Part-02-1.jpg" alt="Contact Us"style="width:600px">
+    </div>
+</div>
+{% endblock %}

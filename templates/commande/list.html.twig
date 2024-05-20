@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des livres{% endblock %}
+
+{% block body %}
+<div class="container">
+<div class="row">
+    <table class="table">
+        <thead>
+        <tr><th>ID Commande</th>
+       
+        
+        <th>Client</th>
+        <th>Action</th>
+        </thead>
+        <tbody>
+    {% for commande in pagination %}
+    <tr><td>{{commande.id}}</td>
+            <td>{{ commande.user ? commande.user.email : 'Aucun utilisateur' }}</td>
+            
+       
+         <td><a href={{url('admin_commande_delete',{'id':commande.id})}} onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette commande ?');"><button class="btn btn-light" style="background-color : black; color:white"><i class="fas fa-trash-alt"></a></td>
+        <td></td>
+        </tr>
+    {% endfor %}
+</div>
+
+
+</tbody>
+</table>
+
+{{ knp_pagination_render(pagination) }}
+</div>
+</div>
+{% endblock %}

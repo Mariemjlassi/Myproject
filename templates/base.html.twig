@@ -21,43 +21,88 @@
                     
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <li class="nav-item">
-                        <a class="nav-link " href="{{ url('app_livres') }}">Livres
+                    <li class="nav-item" style="margin-left:50px">
+                        <a class="nav-link " href="{{ url('app_livres') }}"><i class="fa fa-book" style="color: black;font-size:20px"></i><strong>Livres</strong>
                             <span class="visually-hidden">(current)</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('app_categorie_index') }}">Catégories</a>
-                    </li>
+                                <li class="nav-item" style="margin-left:50px">
+                <a class="nav-link" href="{{ url('app_list_avis') }}">
+                    <i class="fas fa-comments" style="color: black;font-size:20px"></i>
+                    <strong>Avis</strong>
+                    <span class="visually-hidden">(current)</span>
+                </a>
+            </li>
+
+        <li class="nav-item" style="margin-left:50px">
+            <a class="nav-link" href="{{ url('app_categorie_index') }}">
+                <i class="fas fa-list" style="color: black;font-size:20px"></i> 
+                <strong>Catégories</strong>
+            </a>
+        </li>
+
+
+        <li class="nav-item" style="margin-left:50px">
+            <a class="nav-link" href="{{ url('app_dashboard') }}">
+            <i class="fas fa-chart-bar" style="color: black;font-size:20px"></i>
+                <strong>Dashboard</strong>
+            </a>
+        </li>
+        <li class="nav-item" style="margin-left:50px">
+            <a class="nav-link" href="{{ url('app_reclamation_list') }}">
+            <i class="fas fa-exclamation-triangle" style="color: black;font-size:20px"></i>
+                <strong>Réclamations</strong>
+            </a>
+        </li>
+        <li class="nav-item" style="margin-left:50px">
+            <a class="nav-link" href="{{ url('app_user_index') }}">
+            <i class="fa fa-users" style="color: black;font-size:20px"></i>
+                <strong>Utilisateurs</strong>
+            </a>
+        </li>
+        <li class="nav-item" style="margin-left:50px">
+                      <a class="nav-link " href="{{ url('list_commande') }}"><i class="fas fa-shipping-fast" style="color: black;font-size:20px"></i>
+                         <strong>Commandes</strong> <span class="visually-hidden">(current)</span>
+                      </a>
+                  </li>
+
                 {% endif %}
+                {% if not is_granted('ROLE_ADMIN') %}
                 <li class="nav-item" style="margin-left:50px">
-                    <a class="nav-link " href="{{ url('app_list_livres') }}"><i class="fa fa-book" style="color: black;font-size:24px"></i>
+                    <a class="nav-link " href="{{ url('app_list_livres') }}"><i class="fa fa-book" style="color: black;font-size:28px"></i>
                        <strong>Livres</strong> <span class="visually-hidden">(current)</span>
                     </a>
                 </li>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Admin Link</a>
-                    </li>
-                {% endif %}
+                <li class="nav-item" style="margin-left:50px">
+                    <a class="nav-link " href="{{ url('app_reclamation') }}"><i class="fas fa-exclamation" style="color: black;font-size:28px"></i>
+                       <strong>Réclamation</strong> <span class="visually-hidden">(current)</span>
+                       
+                    </a>
+                </li>
+               {% endif %}
             </ul>
             <ul class="navbar-nav me-ml">
+            {% if not is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('panier_afficher') }}"><i class="fa fa-shopping-cart" style="color: black;font-size:24px"></i></a>
+                    <a class="nav-link" href="{{ url('panier_afficher') }}"><i class="fa fa-shopping-cart" style="color: black;font-size:28px"></i>
+                    <span class="badge">
+                        
+                        </span></a>
                 </li>
+                {% endif %}
                 {% if app.user %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('app_logout') }}"><i class="fas fa-sign-out-alt" style="color: black;font-size:24px"></i></a>
+                        <a class="nav-link" href="{{ url('app_logout') }}"><i class="fas fa-sign-out-alt" style="color: black;font-size:28px"></i></a>
                     </li>
                 {% endif %}
                 {% if not app.user %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('app_register') }}">S'inscrire
+                        <a class="nav-link" href="{{ url('app_register') }}"><strong>S'inscrire</strong>
                             <span class="visually-hidden">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="{{ url('app_login') }}">Connexion
+                        <a class="nav-link " href="{{ url('app_login') }}"><strong>Connexion</strong>
                             <span class="visually-hidden">(current)</span>
                         </a>
                     </li>

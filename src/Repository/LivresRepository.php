@@ -45,6 +45,44 @@ class LivresRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findMostSoldBook()
+{
+    return $this->createQueryBuilder('l')
+        ->select('l.titre, SUM(lc.quantite) as total')
+        ->join('l.ligneCommandes', 'lc')
+        ->groupBy('l.titre')
+        ->orderBy('total', 'DESC')
+        ->setMaxResults(1)
+        ->getQuery()
+        ->getOneOrNullResult();
+}
+
+public function findByCriteria($filtreTitre, $filtrePrixMin, $filtrePrixMax, $filtreEditeur)
+    {
+        $queryBuilder = $this->createQueryBuilder('l');
+    
+        if ($filtreTitre) {
+            $queryBuilder->andWhere('l.titre LIKE :titre')
+                ->setParameter('titre', '%' . $filtreTitre . '%');
+        }
+    
+        if ($filtrePrixMin) {
+            $queryBuilder->andWhere('l.prix >= :prix_min')
+                ->setParameter('prix_min', $filtrePrixMin);
+        }
+    
+        if ($filtrePrixMax) {
+            $queryBuilder->andWhere('l.prix <= :prix_max')
+                ->setParameter('prix_max', $filtrePrixMax);
+        }
+    
+        if ($filtreEditeur) {
+            $queryBuilder->andWhere('l.editeur LIKE :editeur')
+                ->setParameter('editeur', '%' . $filtreEditeur . '%');
+        }
+    
+        return $queryBuilder->getQuery()->getResult();
+    }
 
 //    public function findOneBySomeField($value): ?Livres
 //    {

@@ -4,6 +4,52 @@
 
 {% block body %}
 <div class="container">
+<div class="container" style="margin-bottom:20px; margin-left:-25px">
+      <nav class="navbar bg-body-tertiary" id="filterCard" style="display: none;">
+        <div class="container-fluid">
+          <form id="filterForm" action="{{ path('app_livre_filtrer') }}" method="GET">
+              <div class="row ">
+                  <div class="col-md-3">
+                      <label for="filtre_titre" class="form-label">Titre</label>
+                      <input type="text" class="form-control" id="filtre_titre" name="filtre_titre">
+                  </div>
+                  <div class="col-md-3">
+                      <label for="filtre_editeur" class="form-label">Editeur</label>
+                      <input type="text" class="form-control" id="filtre_editeur" name="filtre_editeur">
+                  </div>
+                  <div class="col-md-2">
+                      <label for="filtre_prix_min" class="form-label">Prix Min</label>
+                      <input type="number" class="form-control" id="filtre_prix_min" name="filtre_prix_min">
+                  </div>
+                  <div class="col-md-2">
+                      <label for="filtre_prix_max" class="form-label">Prix Max</label>
+                      <input type="number" class="form-control" id="filtre_prix_max" name="filtre_prix_max">
+                  </div>
+                  <div class="col-md-2" style="margin-top:33px">
+                      <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+                  </div>
+              </div>
+          </form>
+      </div>
+      
+      </nav>
+  </div>
+<div class="container" style="margin-bottom:20px; margin-left:-25px">
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href='{{url('app_list_livres')}}'>Tous</a>
+    {% for cat in categories %}
+    <a class="nav-link active" aria-current="page" href='{{url('app_livre_categorie',{'id':cat.id})}}'>{{cat.libelle}}</a>
+    {% endfor %}
+    <form class="d-flex" role="search" action="{{ path('app_livre_titre') }}" method="GET">
+      <input class="form-control me-2" type="search" name="search" placeholder="Rechercher" aria-label="Search">
+      <button class="btn btn-light" type="submit" style="background-color : #ACE1AF;color:black">Rechercher</button>
+    </form>
+    <button type="button" class="btn btn-light" id="toggleFilterCard" style="background-color : #FF8A08;color:black"><i class="fas fa-filter"></i></button>
+
+  </div>
+</nav>
+</div>
 <div class="row">
     {% for livre in pagination %}
         <div class="col-sm-4">
@@ -26,4 +72,14 @@
 
 {{ knp_pagination_render(pagination) }}
 </div>
+<script>
+    document.getElementById('toggleFilterCard').addEventListener('click', function () {
+        var filterCard = document.getElementById('filterCard');
+        if (filterCard.style.display === 'none') {
+            filterCard.style.display = 'block';
+        } else {
+            filterCard.style.display = 'none';
+        }
+    });
+</script>
 {% endblock %}

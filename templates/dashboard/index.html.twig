@@ -1,0 +1,165 @@
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord administrateur</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            color: black;
+            height: 100vh;
+            position: fixed;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        .sidebar h2 {
+            color: black;
+            margin-bottom: 20px;
+        }
+        .sidebar .user-info {
+            margin-bottom: 40px;
+        }
+        .sidebar .user-info img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            margin-right: 10px;
+        }
+        .sidebar .user-info p {
+            margin: 0;
+        }
+        .sidebar .nav-links a {
+            display: block;
+            color: black;
+            text-decoration: none;
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+        .container {
+            margin-left: 370px;
+            margin-right:20px;
+            padding: 20px;
+            width: 100%;
+        }
+        .header {
+            margin-top:20px;
+            background-color: #FFCCD2;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            border-radius: 8px;
+            height:200px
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .card {
+            margin-top:70px;
+            background: linear-gradient(to right, #FF9999, #EE81B3);
+            padding: 20px;
+            border-radius: 35px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 30%;
+            color: white;
+        }
+        .card.green {
+
+            background: linear-gradient(to right, #FF9999, #EE81B3);
+        }
+        .card h2 {
+            margin: 0;
+        }
+        .card p {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+        .chart-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .chart-title {
+            text-align: center;
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+        #i{
+            margin-top:-190px;
+            margin-left:900px
+        }
+    </style>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable({{ donneesGraphique|json_encode|raw }});
+
+            var options = {
+                title: 'Nombre de ventes par livre',
+                hAxis: {title: 'Livre',  titleTextStyle: {color: '#333'}},
+                vAxis: {minValue: 0},
+                colors: ['#D2649A'],
+                backgroundColor: '#ffffff'
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <div class="user-info">
+            <img src="https://i.pinimg.com/564x/60/31/25/6031253da1d85e65d4e3d1ba0cff44b4.jpg" alt="User Image">
+            <p>{{ app.user.email }}</p>
+        </div>
+        <div class="nav-links">
+            <a href="#">Dashboard</a>
+            <a href="{{ url('app_reclamation_list') }}">Réclamations</a>
+            <a href="{{ url('app_livres') }}">Livres</a>
+            <a href="#">Customers</a>
+            <a href="{{url('app_categorie_index')}}">Catégories</a>
+            
+        </div>
+    </div>
+    <div class="container">
+        <div class="header">
+        <h1>Hello Sarah!</h1>
+         <img src="{{ asset('assets/images/young.png') }}" style="height:350px;width:350px" id="i"/>
+        </div>
+        <div class="stats">
+            <div class="card">
+                <h2>Nombre total de commandes</h2>
+                <p>{{ totalCommandes }}</p>
+            </div>
+            <div class="card green">
+                <h2>Livre le plus vendu</h2>
+                <p>{{ livreLePlusVendu.titre }}</p>
+            </div>
+        </div>
+        <div class="chart-container">
+            <h2 class="chart-title">Statistiques de ventes</h2>
+            <div id="chart_div" style="width: 100%; height: 500px;"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}

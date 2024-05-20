@@ -1,0 +1,27 @@
+{% block body %}
+
+
+               <h1> Details commande</h1>
+           <br>
+            <div class="card-body">
+                {% for ligneCommande in commande.ligneCommandes %}
+                    <div class="d-flex align-items-start mb-5">
+                             <div class='container'>
+                                <p> <strong>  Livre :</strong>  {{ ligneCommande.livre.titre }}</p> Prix :{{ ligneCommande.livre.prix }} DT Quantité : {{ ligneCommande.quantite }}</p>
+                            
+                            
+                        </div>
+                    </div>
+                    {% if not loop.last %}
+                        <hr> 
+                    {% endif %}
+                {% endfor %}
+            </div>
+           
+            <strong>Total: {{total}} DT</strong>
+
+    
+{% endblock %}
+
+
+

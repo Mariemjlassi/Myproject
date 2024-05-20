@@ -19,6 +19,7 @@ class CategorieType extends AbstractType
             ->add('slug')
             ->add('descripton',TextType::class)
             ->add('enregistrer',SubmitType::class)
+            ->add('enregistrer',SubmitType::class)
         ;
     }
 

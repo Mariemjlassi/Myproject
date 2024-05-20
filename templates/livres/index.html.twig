@@ -4,14 +4,15 @@
 
 
 {% block body %}
-<a href="{{url('app_livre_add')}}"><button type="button" class="btn btn-info">Ajouter</button></a>
+<div class="container">
+<a href="{{url('app_livre_add')}}"><button class="btn btn-light" style="background-color:#BACD92"><i class="fa fa-plus"></i></button></a>
 
 <table class=table>
 <tr>
 <th>Titre</th>
 <th>ISBN</th>
 <th>Editeur</th>
-<th>prix</th>
+<th>prix(DT)</th>
 <th>Date Edition</th>
 <th>Catégories</th>
 <th>Action</th>
@@ -29,13 +30,14 @@
 <td>{{livre.prix}}</td>
 <td>{{livre.dateEdition | date('d/m/Y')}}</td>
 <td>{{livre.categorie.libelle}}</td>
-<td><a href="{{url('app_livres_details',{'id':livre.id})}}"><button type="button" class="btn btn-link">voir details</button></a></td>
-<td><a href="{{url('app_livres_delete',{'id':livre.id})}}"><button type="button" class="btn btn-danger">supprimer</button></a></td>
-<td><a href="{{url('app_livres_modify',{'id':livre.id})}}"><button type="button" class="btn btn-primary">Editer</button></a></td>
+<td><a href="{{url('app_livres_details',{'id':livre.id})}}"><button class="btn btn-light" style="background-color : #6DC5D1;color:black"><i class="fas fa-eye"></i></button></a></td>
+<td><a href="{{url('app_livres_delete',{'id':livre.id})}}"><button class="btn btn-light" style="background-color : #FF5F00;color:black"><i class="fas fa-trash-alt"></button></a></td>
+<td><a href="{{url('app_Liv_update',{'id':livre.id})}}"><button class="btn btn-light" style="background-color : #FFB1B1;color:black"><i class="fas fa-edit"></i></button></a></td>
 
 </tr>
     
 {% endfor %}
 
 </table>
+</div>
 {% endblock %}

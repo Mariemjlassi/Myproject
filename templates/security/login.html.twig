@@ -2,16 +2,13 @@
 
 {% block title %}Log in!{% endblock %}
 
-
-
-
 {% block body %}
 <style>
 
 .login-block {
     background: #4F6F52;
     background: -webkit-linear-gradient(to bottom, #BFD8AF, #99BC85);
-    background: linear-gradient(to bottom, #FF0080, #FFCBCB);
+    background: linear-gradient(to bottom, #FF9F66, #FFFAE6);
     float: left;
     width: 100%;
     padding: 50px 0;
@@ -64,14 +61,14 @@
     margin-bottom: 30px;
     font-weight: 800;
     font-size: 30px;
-    color: #FF0080;
+    color: #176B87;
 }
 
 .login-sec h2:after {
     content: " ";
     width: 100px;
     height: 5px;
-    background: #002379;
+    background: #EEC759;
     display: block;
     margin-top: 20px;
     border-radius: 3px;
@@ -80,7 +77,7 @@
 }
 
 .btn-login {
-    background: #FF0080;
+    background: #DC6B19;
     color: #fff;
     font-weight: 600;
 }
@@ -141,6 +138,9 @@
                         </div>
                     <button type="submit" class="btn btn-login float-right">Valider</button>
                 </form>
+                <p>
+    <a href="{{ path('app_forgot_password_request') }}">Forgot your password?</a>
+</p>
                 <p-toast></p-toast>
             </div>
             <div class="col-md-8 banner-sec">
@@ -148,12 +148,9 @@
                     
                     <div class="carousel-inner" role="listbox">
                         <div class="carousel-item active">
-                            <img class="d-block img-fluid" src="https://i.pinimg.com/736x/8f/a7/f7/8fa7f77e31bc9579359569c7192a7901.jpg" >
+                            <img class="d-block img-fluid" src="https://i.pinimg.com/564x/8d/48/d2/8d48d253923c78a30650faa95462ca11.jpg" style="width:700px">
                             <div class="carousel-caption d-none d-md-block">
-                                <div class="banner-text">
-                                    <h2>Bienvenue</h2>
-                                    <p>                                                                                                                                             </p>
-                                </div>	
+                                
                             </div>
                         </div>
                         <!-- Add your other carousel items here -->

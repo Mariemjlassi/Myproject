@@ -1,32 +1,123 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Register{% endblock %}
-
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+<style>
+    /* Ajoutez vos styles CSS personnalisés ici */
+    body {
+        /* background: linear-gradient(to bottom, #faf0e6, #FFC371);  Remplacez ces couleurs par celles de votre choix */
+        background-color: #fbf0f0;
+    }
+    .container {
+        margin-top: 3%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        
+    }
+
+    .form_area {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: #EDDCD9;
+        height: auto;
+        width: auto;
+        border: 2px solid #264143;
+        border-radius: 20px;
+        box-shadow: 3px 4px 0px 1px #E99F4C;
+        margin-top:80px;
+    }
+
+    .title {
+        color: #264143;
+        font-weight: 900;
+        font-size: 1.5em;
+        margin-top: 20px;
+    }
+
+    .sub_title {
+        font-weight: 600;
+        margin: 5px 0;
+    }
+
+    .form_group {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+        margin: 10px;
+    }
+
+    .form_style {
+        outline: none;
+        border: 2px solid #264143;
+        box-shadow: 3px 4px 0px 1px #E99F4C;
+        width: 290px;
+        padding: 12px 10px;
+        border-radius: 4px;
+        font-size: 15px;
+    }
+
+    .form_style:focus, .btn:focus {
+        transform: translateY(4px);
+        box-shadow: 1px 2px 0px 0px #E99F4C;
+    }
+
+    .btn {
+        padding: 15px;
+        margin: 25px 0px;
+        width: 290px;
+        font-size: 15px;
+        background: #DE5499;
+        border-radius: 10px;
+        font-weight: 800;
+        box-shadow: 3px 3px 0px 0px #E99F4C;
+    }
+
+    .btn:hover {
+        opacity: .9;
+    }
+
+    .link {
+        font-weight: 800;
+        color: #264143;
+        padding: 5px;
+    }
+
+</style>
+
 <div class="container">
-<div class="card" style="margin-left:310px; width: 30rem;margin-top:90px">
-  <div class="card-body">
-    <h5 class="card-title">Register</h5>
-    <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
-    <p class="card-text"> {{ form_errors(registrationForm) }}
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}</p>
-    
-  </div>
-</div>
-    
-
-   
+    <div class="form_area">
+        <p class="title">SIGN UP</p>
+        {{ form_start(registrationForm) }}
+        <div class="form_group">
+            <label class="sub_title" for="nom">Nom</label>
+            {{ form_widget(registrationForm.nom, {'attr': {'placeholder': 'Enter your name', 'class': 'form_style'}}) }}
+        </div>
+        <div class="form_group">
+            <label class="sub_title" for="prenom">Prénom</label>
+            {{ form_widget(registrationForm.prenom, {'attr': {'placeholder': 'Enter your first name', 'class': 'form_style'}}) }}
+        </div>
+        <div class="form_group">
+            <label class="sub_title" for="adresse">Adresse</label>
+            {{ form_widget(registrationForm.adresse, {'attr': {'placeholder': 'Enter your address', 'class': 'form_style'}}) }}
+        </div>
+        <div class="form_group">
+            <label class="sub_title" for="email">Email</label>
+            {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'Enter your email', 'class': 'form_style'}}) }}
+        </div>
+        <div class="form_group">
+            <label class="sub_title" for="password">Password</label>
+            {{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Enter your password', 'class': 'form_style'}}) }}
+        </div>
+        <div class="form_group">
+            {{ form_row(registrationForm.agreeTerms, {'label': 'I agree to the terms and conditions'}) }}
+        </div>
+        <div>
+            <button class="btn">SIGN UP</button>
+            <p>Have an Account? <a class="link" href="{{url('app_login')}}">Login Here!</a></p>
+        </div>
+        {{ form_end(registrationForm) }}
     </div>
+</div>
 {% endblock %}

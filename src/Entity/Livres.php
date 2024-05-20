@@ -52,12 +52,20 @@ class Livres
     #[ORM\OneToMany(targetEntity: LigneCommande::class, mappedBy: 'livre')]
     private Collection $ligneCommandes;
 
+    #[ORM\OneToMany(targetEntity: Reclamation::class, mappedBy: 'livre')]
+    private Collection $reclamations;
+
+    #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'livre',cascade: ["persist", "remove"])]
+    private Collection $avis;
+
    
 
     public function __construct()
     {
         $this->lignePaniers = new ArrayCollection();
         $this->ligneCommandes = new ArrayCollection();
+        $this->reclamations = new ArrayCollection();
+        $this->avis = new ArrayCollection();
        
     }
 
@@ -246,5 +254,54 @@ class Livres
         return $this;
     }
 
+    public function getNombreDeVentes(): int
+{
+    
+    $ligneCommandes = $this->getLigneCommandes();
+
+    
+    $nombreDeVentes = 0;
+
+    
+    foreach ($ligneCommandes as $ligneCommande) {
+        $nombreDeVentes += $ligneCommande->getQuantite();
+    }
+
+    return $nombreDeVentes;
+}
+
+    /**
+     * @return Collection<int, Reclamation>
+     */
+
+    /**
+     * @return Collection<int, Avis>
+     */
+    public function getAvis(): Collection
+    {
+        return $this->avis;
+    }
+
+    public function addAvi(Avis $avi): static
+    {
+        if (!$this->avis->contains($avi)) {
+            $this->avis->add($avi);
+            $avi->setLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvi(Avis $avi): static
+    {
+        if ($this->avis->removeElement($avi)) {
+            
+            if ($avi->getLivre() === $this) {
+                $avi->setLivre(null);
+            }
+        }
+
+        return $this;
+    }
     
 }
